@@ -7,13 +7,11 @@ import MovieCardsList from '../movie-cards-list';
 import './app.css';
 
 export default class App extends Component {
-  render() {
-    return (
-      <div className="movieapp">
-        <FilterComponent />
-        <SearchComponent />
-        <MovieCardsList />
-      </div>
-    );
-  }
+	render() {
+		return (
+    <FilterComponent />,
+    <SearchComponent />,
+    <MovieCardsList />
+  )
+	}
 }

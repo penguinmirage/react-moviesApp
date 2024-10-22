@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './movie-card.css';
+import './filter-component';
 
-export default class MovieCard extends Component {
+export default class FilterComponent extends Component {
   render() {
     return <span>FilterComponent</span>;
   }
