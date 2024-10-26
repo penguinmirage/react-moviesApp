@@ -34,6 +34,10 @@ export default class MovieapiService {
   getMovieImages(id) {
   return this.getResource(`/movie/${id}/images`);
   }
+   // Helper method to construct the full image URL
+   getImageUrl(imagePath) {
+     return imagePath ? `https://image.tmdb.org/t/p/w500${imagePath}` : null;
+   }
 }
 
 const movieapi = new MovieapiService();

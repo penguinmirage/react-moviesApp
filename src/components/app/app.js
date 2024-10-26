@@ -1,37 +1,52 @@
 import React, { Component } from 'react';
 import { format } from 'date-fns'; 
+import{ Spin }from"antd";
 
 import FilterComponent from '../filter-component';
 import SearchComponent from '../search-component';
 import MovieCardsList from '../movie-cards-list';
 import MovieapiService from '../../api-service/movieapi.js';
+
 import './app.css';
 
-// Function to truncate text
-function truncateText(text, maxLength) {
+
+function reduceTextSize(text, maxLength) {
   if (text.length <= maxLength) {
     return text;
   }
-  const truncated = text.slice(0, maxLength);
-  return truncated.slice(0, truncated.lastIndexOf(' ')) + '...';
+  const reducedTextLength = text.slice(0, maxLength);
+  return reducedTextLength.slice(0, reducedTextLength.lastIndexOf(' ')) + '...';
 }
 
-// Function to format date
+
 function formatDate(releaseDate) {
   if (!releaseDate) {
-    return 'Release date not available';
+    return 'Unavailable';
   }
 
   const date = new Date(releaseDate);
   if (isNaN(date)) {
-    return 'Release date not available';
+    return 'Unavailable';
   }
 
-  return format(date, 'MMMM d, yyyy'); // Format date as "Month Day, Year"
+  return format(date, 'MMMM d, yyyy');
 }
 
+// Base URL for the poster images
+const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+
+// Для пустых изображений, когда нет постера
+const placeholderStyle = {
+  width: '200px',
+  height: '300px',
+  backgroundColor: 'white',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+};
+
 export default class App extends Component {
-  // Define movieapi as a class property
+
   movieapi = new MovieapiService();
 
   state = {
@@ -55,16 +70,30 @@ export default class App extends Component {
       <div>
         <FilterComponent />
         <SearchComponent />
-        <MovieCardsList />
         <div>
-          <h1>Movie Search Results</h1>
+          <h1>MoviesApp</h1>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <ul>
             {movies.map(movie => (
               <li key={movie.id}>
                 <h2>{movie.title}</h2>
+                {movie.poster_path ? (
+                  <img
+                    src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+                    alt={movie.title}
+                    style={{ width: '200px', height: '300px' }} 
+                  />
+                ) : (
+                  <div style={placeholderStyle}>
+                    <span>Failed to find an Image</span>
+                  </div>
+                )}
                 <p>Release Date: {formatDate(movie.release_date)}</p> 
-                <p>{truncateText(movie.overview, 100)}</p> 
+                <p>
+                  {movie.overview 
+                    ? reduceTextSize(movie.overview, 313) 
+                    : 'No information to be found in the database'}
+                </p>
               </li>
             ))}
           </ul>
