@@ -1,10 +1,69 @@
 .movie-card {
 	width: 451px;
 	height: 297px;
-	
+	display: flex;
+	align-items: flex-start;
+	background-color: #f0f0f0;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .movie-cover {
 	width: 183px;
-	height: 281px;
+	height: auto;
+	border-radius: 5px;
+	margin-right: 20px;
 }
+
+.movie-title {
+	height: 28px;
+	font-size: 20px;
+	line-height: 28px;
+	font-family: 'Inter';
+	color: #000000
+}
+
+.movie-rating {
+	font-size: 12px;
+	color: #827E7E;
+	line-height: 22px;
+	margin-top: 7px;
+	margin-bottom: 9px;
+}
+
+.movie-genre {
+	font-size: 12px;
+	color: #000000A6;
+	border-radius: 2px;
+	margin: 10px 0;
+}
+
+.movie-genre span {
+	background-color: #e0e0e0;
+		border-radius: 3px;
+		padding: 5px 10px;
+		font-size: 12px;
+		margin-right: 5px;
+		color: #555;
+	}
+
+.movie-info {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 3; /* Number of lines to show */
+		-webkit-box-orient: vertical;
+		font-size: 12px;
+		color: #000000;
+	}	
+
+
+.movie-rating {
+	
+}
+
+.movie-stars {
+	
+}
+

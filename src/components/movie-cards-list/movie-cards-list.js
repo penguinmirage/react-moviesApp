@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './movie-cards-list.css';
 
-//import MovieCard from '../movie-card-component';
+import MovieCard from '../movie-card-component';
 
 // 1. Подключение Movie-Card
 // 2. Фетч с API и заполнение списка карточек
@@ -19,8 +19,6 @@ export default class MovieCardsList extends Component {
   render() {
     return <div className="cards-list">
     <ul>
-    <li>movie</li>
-    <li>movie</li>
     <li></li>
     </ul></div>;
   }

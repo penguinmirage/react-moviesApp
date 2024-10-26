@@ -4,7 +4,7 @@
   "apexskier.eslint.config.eslintRulesDirs" : [
     ""
   ],
-  "apexskier.eslint.config.fixOnSave" : "Enable",
+  "apexskier.eslint.config.fixOnSave" : "Inherit from Global Settings",
   "prettier.default-config.endOfLine" : "lf",
   "prettier.default-config.printWidth" : 120,
   "prettier.default-config.semi" : "Disable",
