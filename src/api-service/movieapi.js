@@ -8,7 +8,7 @@ export default class MovieapiService {
     method: 'GET',
     headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3MmRiZmNiOGYwYzcwYjQ1ODViMWNjZDRiNDUwMTcxMCIsIm5iZiI6MTcyOTk3ODMwNS4wMTIzNzcsInN1YiI6IjY3MTdhZmUyNDVjZDY3NjIyMzU4OWViYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gpFcGOyx0_AiQTCShmysg0JZ7WyMdJvtEvG6agsOB2o'
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDlhOTVmNTgyNGJiNzY1MWJkYTAxYzIwNmI4ZWJkMiIsIm5iZiI6MTczMDAyMjUzOC44NTA3ODMsInN1YiI6IjY3MTdhZmUyNDVjZDY3NjIyMzU4OWViYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LbHQI28-4wkeO7W7OrJx_3D-v11-g1udHQAZCh3WV_s'
     }
   };
   const res = await fetch(`${this._apiBase}${url}`, options);
