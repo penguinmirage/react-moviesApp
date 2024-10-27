@@ -18,3 +18,34 @@ code {
   height: 1147px;
   background-color: #FFFFFF;
 }
+
+.search-component {
+  display: flex;
+  justify-content: center;
+}
+
+.shadow-btn {
+   position: relative;
+   padding: 15px 40px;
+   margin: 0 20px;
+   background: #fff9ef;
+   font-family: 'Montserrat Alternates', sans-serif;
+   color: #fe7660;
+   text-transform: lowercase;
+   border: 2px solid #052464;
+   font-size: 16px;
+   font-weight: 600;
+   outline: none;
+   cursor: pointer;
+}
+
+.shadow-btn:hover .text {
+   transform: translateX(8px);
+}
+.shadow-btn:hover i {
+   transform: translateX(100%);
+   opacity: 0;
+}
+.shadow-btn:hover .shadow {
+   transform: translate3d(3px, 3px, 0);
+}

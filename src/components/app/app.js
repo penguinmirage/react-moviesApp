@@ -4,7 +4,7 @@ import SpinnerLoader from '../spinner-loader';
 import MovieCardsList from '../movie-cards-list';
 import FilterComponent from '../filter-component';
 import SearchComponent from '../search-component';
-import { Alert } from 'antd'; // Importing Alert from Ant Design
+import { Alert } from 'antd';
 import './app.css';
 
 export default class App extends Component {
@@ -15,45 +15,50 @@ export default class App extends Component {
     error: null,
     isLoading: true,
     loadPosters: false,
-    isOffline: !navigator.onLine, // Проверяем состояние сети при загрузке
+    isOffline: !navigator.onLine, 
+    noResults: false,
+    searchQuery: '', 
   };
 
   componentDidMount() {
-    // Добавляем слушатели изменения состояния сети
+    // Adding network status listeners
     window.addEventListener('online', this.updateNetworkStatus);
     window.addEventListener('offline', this.updateNetworkStatus);
 
     if (navigator.onLine) {
-      this.fetchMovies();
+      this.fetchMovies(); 
     } else {
       this.setState({ error: 'No network connection', isLoading: false });
     }
   }
 
   componentWillUnmount() {
-    // Удаляем слушатели при размонтировании компонента
     window.removeEventListener('online', this.updateNetworkStatus);
     window.removeEventListener('offline', this.updateNetworkStatus);
   }
 
-  // Метод для обновления статуса сети
   updateNetworkStatus = () => {
     const isOffline = !navigator.onLine;
     this.setState({ isOffline });
 
     if (!isOffline && this.state.movies.length === 0) {
-      // Если сеть восстановлена и фильмы еще не загружены, загружаем их
       this.fetchMovies();
     }
   };
 
-  // Метод для загрузки фильмов
-  fetchMovies() {
-    this.setState({ isLoading: true, error: null });
-    this.movieapi.searchMovies('return')
+  fetchMovies(query) {
+    this.setState({ isLoading: true, error: null, noResults: false });
+    this.movieapi.searchMovies(query)
       .then((data) => {
-        this.setState({ movies: data.results, isLoading: false });
-        // Set a timeout to load posters after 5 seconds
+        if (data.results.length === 0) {
+          this.setState({ noResults: true, isLoading: false });
+          setTimeout(() => {
+            this.setState({ noResults: false });
+          }, 5000);
+        } else {
+          this.setState({ movies: data.results, isLoading: false, noResults: false });
+        }
+
         setTimeout(() => {
           this.setState({ loadPosters: true });
         }, 1000);
@@ -63,8 +68,41 @@ export default class App extends Component {
       });
   }
 
+  // New method to fetch trending movies
+  fetchTrendingMovies = () => {
+    this.setState({ isLoading: true, error: null });
+    
+    fetch('https://api.themoviedb.org/3/trending/all/day?api_key=d0fe716841fe3be4fc20d2546bbedc18')
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          movies: data.results,
+          isLoading: false,
+          noResults: data.results.length === 0
+        });
+
+        if (data.results.length === 0) {
+          setTimeout(() => {
+            this.setState({ noResults: false });
+          }, 5000);
+        }
+      })
+      .catch((error) => {
+        this.setState({ error: 'Failed to fetch trending movies', isLoading: false });
+      });
+  };
+
+  handleSearch = (query = 'return') => {
+    this.setState({ searchQuery: query }); // Set the current search query
+    if (query) {
+      this.fetchMovies(query); // Fetch movies based on the query
+    } else {
+      this.fetchMovies(); // Fetch default movies if the search query is empty
+    }
+  };
+
   render() {
-    const { movies, error, isLoading, loadPosters, isOffline } = this.state;
+    const { movies, error, isLoading, loadPosters, isOffline, noResults, searchQuery } = this.state;
 
     if (isLoading) {
       return <SpinnerLoader />;
@@ -72,10 +110,11 @@ export default class App extends Component {
 
     return (
       <div className="app">
+        <button className="shadow-btn" onClick={this.fetchTrendingMovies}>Show Current Trending Movies</button> {/* Button to fetch trending movies */}
         <FilterComponent />
-        <SearchComponent />
+        <SearchComponent className="search-component" onSearch={this.handleSearch} /> {/* Always visible */}
         <div>
-          <h1>MoviesApp</h1>
+          
           {isOffline && (
             <Alert
               message="No network connection"
@@ -93,12 +132,161 @@ export default class App extends Component {
               closable={false} // Making sure the error is not closable
             />
           )}
+          {noResults && (
+            <Alert
+              message="No search results"
+              type="warning"
+              showIcon
+            />
+          )}
           <MovieCardsList movies={movies} loadPosters={loadPosters} />
         </div>
       </div>
     );
   }
 }
+
+
+///////////////////////////////////
+// import React, { Component } from 'react';
+// import MovieapiService from '../../api-service/movieapi.js';
+// import SpinnerLoader from '../spinner-loader';
+// import MovieCardsList from '../movie-cards-list';
+// import FilterComponent from '../filter-component';
+// import SearchComponent from '../search-component';
+// import { Alert } from 'antd';
+// import './app.css';
+// 
+// export default class App extends Component {
+//   movieapi = new MovieapiService();
+// 
+//   state = {
+//     movies: [],
+//     error: null,
+//     isLoading: true,
+//     loadPosters: false,
+//     isOffline: !navigator.onLine, 
+//     noResults: false,
+//   };
+// 
+//   componentDidMount() {
+// 
+//     window.addEventListener('online', this.updateNetworkStatus);
+//     window.addEventListener('offline', this.updateNetworkStatus);
+// 
+//     if (navigator.onLine) {
+//       this.fetchMovies();
+//     } else {
+//       this.setState({ error: 'No network connection', isLoading: false });
+//     }
+//   }
+// 
+//   componentWillUnmount() {
+//     window.removeEventListener('online', this.updateNetworkStatus);
+//     window.removeEventListener('offline', this.updateNetworkStatus);
+//   }
+// 
+//   // Метод для обновления статуса сети
+//   updateNetworkStatus = () => {
+//     const isOffline = !navigator.onLine;
+//     this.setState({ isOffline });
+// 
+//     if (!isOffline && this.state.movies.length === 0) {
+//       // Если сеть восстановлена и фильмы еще не загружены, загружаем их
+//       this.fetchMovies();
+//     }
+//   };
+// 
+// fetchMovies(query = 'return') {
+//     this.setState({ isLoading: true, error: null, noResults: false });
+//     this.movieapi.searchMovies(query)
+//       .then((data) => {
+//         if (data.results.length === 0) {
+//           this.setState({ noResults: true, isLoading: false });
+//   
+//      
+//           setTimeout(() => {
+//             this.setState({ noResults: false });
+//           }, 5000);
+//         } else {
+//           this.setState({ movies: data.results, isLoading: false, noResults: false });
+//         }
+//       
+//         setTimeout(() => {
+//           this.setState({ loadPosters: true });
+//         }, 1000);
+//       })
+//       .catch((error) => {
+//         this.setState({ error: 'Failed to fetch movies', isLoading: false });
+//       });
+//   }
+// 
+// //   fetchMovies() {
+// //     this.setState({ isLoading: true, error: null });
+// //     this.movieapi.searchMovies('return')
+// //       .then((data) => {
+// //         this.setState({ movies: data.results, isLoading: false });
+// // 
+// //         setTimeout(() => {
+// //           this.setState({ loadPosters: true });
+// //         }, 1000);
+// //       })
+// //       .catch((error) => {
+// //         this.setState({ error: 'Failed to fetch movies', isLoading: false });
+// //       });
+// //   }
+//   // метод для поиска фильмов, соединяемый с компонентом Поиска
+//   handleSearch = (query) => {
+//     if (query) {
+//       this.fetchMovies(query);
+//     } else {
+//       this.fetchMovies(); // Fetch default movies if the search query is empty
+//     }
+//   };
+// 
+//   render() {
+//     const { movies, error, isLoading, loadPosters, isOffline, noResults } = this.state;
+// 
+//     if (isLoading) {
+//       return <SpinnerLoader />;
+//     }
+// 
+//     return (
+//       <div className="app">
+//         <FilterComponent />
+//         <SearchComponent onSearch={this.handleSearch} />
+//         <div>
+//           <h1>MoviesApp</h1>
+//           {isOffline && (
+//             <Alert
+//               message="No network connection"
+//               description="Check your router or reboot your computer. This page will reload automatically when you go online again."
+//               type="error"
+//               showIcon
+//             />
+//           )}
+//           {error && (
+//             <Alert
+//               message="Error"
+//               description={error}
+//               type="error"
+//               showIcon
+//               closable={false} 
+//             />
+//           )}
+//           {noResults && (
+//             <Alert
+//               message="No search results"
+//               type="warning"
+//               showIcon
+//             />
+//           )}
+//           <MovieCardsList movies={movies} loadPosters={loadPosters} />
+//         </div>
+//       </div>
+//     );
+//   }
+// }
 ///////////////////////
 
   // componentDidMount() {

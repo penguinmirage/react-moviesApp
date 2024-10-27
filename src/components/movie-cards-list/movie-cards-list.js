@@ -64,7 +64,15 @@ const genreMap = {
 
 // Function to get genre names from genre IDs
 function getGenreNames(genreIds) {
-  return genreIds.map((id) => genreMap[id]).filter(Boolean).join(', ');
+  return genreIds.map((id) => genreMap[id]).filter(Boolean);
+}
+
+// Function to get rating color based on value
+function getRatingColor(voteAverage) {
+  if (voteAverage < 3) return '#E90000'; // Red for ratings 0-3
+  if (voteAverage < 5) return '#E97E00'; // Orange for ratings 3-5
+  if (voteAverage < 7) return '#E9D100'; // Yellow for ratings 5-7
+  return '#66E900'; // Green for ratings above 7
 }
 
 class MovieCardsList extends Component {
@@ -109,9 +117,27 @@ class MovieCardsList extends Component {
       <ul className="movie-cards-list">
         {movies.map((movie) => (
           <li key={movie.id} className="movie-card">
+          <div className="movie-card-poster">{/* Poster */}
+          {loadPoster && loadPosters ? (
+            movie.poster_path ? (
+              <img className="movie-poster"
+                src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+                alt={movie.title}
+              />
+            ) : (
+              <div style={placeholderStyle}>
+                <span>No Image Available</span>
+              </div>
+            )
+          ) : (
+            <div style={placeholderStyle}>
+              <SpinnerLoader />
+            </div>
+          )} </div>
+          <div className="movie-card-whole-info">
             {/* Title */}
             {loadTitle ? (
-              <h2>{movie.title}</h2>
+              <h2 className="movie-title">{movie.title}</h2>
             ) : (
               <SpinnerLoader />
             )}
@@ -119,14 +145,23 @@ class MovieCardsList extends Component {
             {/* Rating, Genre, and Overview */}
             {loadInfo ? (
               <>
-                <p className="movie-rating">
+                <p
+                  className="movie-rating"
+                  style={{ color: getRatingColor(movie.vote_average) }}
+                >
                   {Math.round(movie.vote_average * 10) / 10}
                 </p>
-                <p className="movie-genre">{getGenreNames(movie.genre_ids)}</p>
-                <p>Release Date: {formatDate(movie.release_date)}</p>
-                <p>
+                <div className="movie-genre-list">
+                  {getGenreNames(movie.genre_ids).map((genre, index) => (
+                    <div key={index} className="movie-genre">
+                      {genre}
+                    </div>
+                  ))}
+                </div>
+                <p className="movie-releaseDate">Release Date: {formatDate(movie.release_date)}</p>
+                <p className="movie-overview">
                   {movie.overview
-                    ? reduceTextSize(movie.overview, 313)
+                    ? reduceTextSize(movie.overview, 150)
                     : 'No information to be found in the database'}
                 </p>
               </>
@@ -134,24 +169,7 @@ class MovieCardsList extends Component {
               <SpinnerLoader />
             )}
             
-            {/* Poster */}
-            {loadPoster && loadPosters ? (
-              movie.poster_path ? (
-                <img
-                  src={`${IMAGE_BASE_URL}${movie.poster_path}`}
-                  alt={movie.title}
-                  style={{ width: '200px', height: '300px' }}
-                />
-              ) : (
-                <div style={placeholderStyle}>
-                  <span>No Image Available</span>
-                </div>
-              )
-            ) : (
-              <div style={placeholderStyle}>
-                <SpinnerLoader />
-              </div>
-            )}
+          </div>
           </li>
         ))}
       </ul>

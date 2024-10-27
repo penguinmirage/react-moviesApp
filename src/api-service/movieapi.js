@@ -38,6 +38,10 @@ export default class MovieapiService {
    getImageUrl(imagePath) {
      return imagePath ? `https://image.tmdb.org/t/p/w500${imagePath}` : null;
    }
+   
+   getTrending(url) {
+     return this.getResource(`https://api.themoviedb.org/3/trending/all/day`);
+   }
 }
 
 const movieapi = new MovieapiService();
