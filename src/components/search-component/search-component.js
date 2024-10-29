@@ -26,7 +26,7 @@ export default class SearchComponent extends Component {
   render() {
     return (
       <div className="search-component">
-        <input
+        <input className="search"
           type="text"
           placeholder="Search the movie database..."
           value={this.state.query} // Keep the input field controlled

@@ -24,28 +24,34 @@ code {
   justify-content: center;
 }
 
-.shadow-btn {
-   position: relative;
-   padding: 15px 40px;
-   margin: 0 20px;
-   background: #fff9ef;
-   font-family: 'Montserrat Alternates', sans-serif;
-   color: #fe7660;
-   text-transform: lowercase;
-   border: 2px solid #052464;
-   font-size: 16px;
-   font-weight: 600;
-   outline: none;
-   cursor: pointer;
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
 }
 
-.shadow-btn:hover .text {
-   transform: translateX(8px);
+.alert-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centers the element */
+  max-width: 90%;
+  width: 400px;
+  padding: 20px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2a2a2a;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+  border: 2px solid #ff4d4f; /* Bright border color for alert */
+  border-radius: 12px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Smooth shadow */
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
 }
-.shadow-btn:hover i {
-   transform: translateX(100%);
-   opacity: 0;
-}
-.shadow-btn:hover .shadow {
-   transform: translate3d(3px, 3px, 0);
+
+.alert-message:hover {
+  background-color: rgba(255, 77, 79, 0.1); /* Light red background on hover */
+  border-color: #d9363e; /* Darken the border slightly on hover */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
 }
