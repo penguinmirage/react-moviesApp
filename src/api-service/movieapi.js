@@ -8,7 +8,7 @@ export default class MovieapiService {
     method: 'GET',
     headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNDlhOTVmNTgyNGJiNzY1MWJkYTAxYzIwNmI4ZWJkMiIsIm5iZiI6MTczMDAyMjUzOC44NTA3ODMsInN1YiI6IjY3MTdhZmUyNDVjZDY3NjIyMzU4OWViYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.LbHQI28-4wkeO7W7OrJx_3D-v11-g1udHQAZCh3WV_s'
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOTAzMmJiMmVmZmE5YjY2ZTNmZDEyZmVkZDI1ZDI1OSIsIm5iZiI6MTczMDIzMjIyNC4wMDM2NzUyLCJzdWIiOiI2NzE3YWZlMjQ1Y2Q2NzYyMjM1ODllYmIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.tJQEKnTnekvMVBjhRTw2Fb7fFyz-voJ4aBdLisgmHck'
     }
   };
   const res = await fetch(`${this._apiBase}${url}`, options);
@@ -21,8 +21,8 @@ export default class MovieapiService {
   }
 
   // Method to get all movies based on a search query
-  searchMovies(query) {
-  return this.getResource(`/search/movie?query=${encodeURIComponent(query)}&include_adult=false&language=en-US&page=1`);
+  searchMovies(query, page = 1) {
+  return this.getResource(`/search/movie?query=${encodeURIComponent(query)}&include_adult=false&language=en-US&page=${page}`);
   }
 
   // Method to get movie details by ID
@@ -40,7 +40,7 @@ export default class MovieapiService {
    }
    
    getTrending(url) {
-     return this.getResource(`https://api.themoviedb.org/3/trending/all/day`);
+     return this.getResource(`https://api.themoviedb.org/3/trending/all/`);
    }
 }
 
