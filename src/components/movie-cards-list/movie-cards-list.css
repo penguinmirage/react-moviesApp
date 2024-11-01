@@ -10,7 +10,7 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  padding: 0;
+  padding: 5px;
 }
 
 .movie-card {
@@ -24,6 +24,7 @@
   flex-direction: row;
   transition: transform 0.3s;
   height: 279px;
+  padding: 5px;
 }
 
 .movie-card:hover {
@@ -42,32 +43,38 @@
   padding: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 100%;
+  gap: 5px;
 }
 
 .movie-title {
-  font-size: 12px;
+  font-size: 17px;
   font-weight: bold;
   margin: 0;
   position: relative;
-	top: 10px;
+	top: -10px;
 	left: 20px;
 	width: 140px;
-	height: 50px;
+	height: 40px;
+  max-height: 80px;
 }
 
 .movie-releaseDate {
   font-size: 14px;
   color: #888;
-  margin: 8px 0;
+  margin: 0;
   position: relative;
-	top: -50px;
+	top: -100px;
 	left: 20px;
+  max-height: 14px;
 }
-
+.rate-gen-over-stars {
+  
+}
 .movie-genre {
-  display: inline-block;
+  display: inline-flex;
+  flex-wrap: wrap;
 	background-color: #e0e0e0; 
 	color: #666; 
 	padding: 1px 1px;
@@ -77,8 +84,10 @@
 	margin-right: 5px;
 	font-size: 14px;
 	position: relative;
-	top: -50px;
+	top: -36px;
 	left: 20px;
+  max-height: 30px;
+  overflow: hidden;
 }
 
 .movie-overview {
@@ -86,34 +95,38 @@
   color: #444;
   line-height: 1.5;
   margin-top: 8px;
- 
   position: relative;
-  top: -50px;
+  top: -60px;
   left: 20px;
-  width: 220px;
+  width: 200px;
+  max-height: 80px;
+  margin: 0;
+  
 }
 
 .movie-rating {
-  position: absolute; /* Fixed position in top right */
-  top: 10px;
-  right: 10px;
+  position: relative;
+  top: -50px;
+  right: -200px;
   font-size: 16px;
   font-weight: bold;
   color: #666;
-  border: 2px solid #f0c036;
+  border: 3px solid #f0c036;
   border-radius: 50%;
   padding: 5px;
   text-align: center;
-  min-width: 40px;
-  min-height: 40px;
-  line-height: 30px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
 }
 
 .movie-stars {
-  margin-bottom: 40px;
-  margin-left: 50px; 
-  align-self: flex-start; 
   position: relative;
-  top: auto; 
-  right: auto; 
+  top: -30px; 
+  left: 20px;
+  block-size: fit-content;
+  height: 20px;
+  
+  
+ 
 } 

@@ -1,21 +1,20 @@
 .search {
   width: 100%;
-  max-width: 400px;
+  min-width: 400px;
   padding: 10px 15px;
-  font-size: 16px;
+  font-size: 12px;
   color: #333;
-  background-color: #f5f7fa; /* Subtle light background */
-  border: 2px solid #3a77ff; /* Bright border */
-  border-radius: 8px;
+  background-color: transparent; 
+  border: 1px solid grey; 
+  border-radius: 2px;
   outline: none;
   transition: all 0.3s ease;
-  box-shadow: 0px 4px 8px rgba(58, 119, 255, 0.15); /* Subtle shadow */
+  box-shadow: 0px 4px 8px rgba(58, 119, 255, 0.15); 
 }
 
 .search:focus {
-  background-color: #ffffff; /* Change background on focus */
-  border-color: #2851a3; /* Darken border on focus */
-  box-shadow: 0px 4px 12px rgba(58, 119, 255, 0.3); /* Slightly bigger shadow on focus */
+  background-color: #ffffff;
+  box-shadow: 0px 4px 12px rgba(58, 119, 255, 0.3); 
 }
 
 .search::placeholder {

@@ -1,13 +1,13 @@
-// RatingComponent.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Rate } from 'antd';
 
 const RatingComponent = ({ movieId, movieRatings, onRateChange, count }) => {
-  const rating = movieRatings[movieId] || 0; // Если рейтинга нет, то ставим 0 (пустые звезды)
+  const rating = movieRatings[movieId] || 0; 
   
   return (
-	<Rate value={rating} onChange={(newRating) => onRateChange(movieId, newRating)} count={10} />
+	<Rate value={rating} onChange={(newRating) => onRateChange(movieId, newRating)} count={8} />
   );
 };
 
@@ -20,17 +20,3 @@ RatingComponent.propTypes = {
 
 export default RatingComponent;
 
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import { Rate } from 'antd';
-// 
-// const RatingComponent = ({ rating, onRateChange, count }) => (
-//   <Rate value={rating} onChange={onRateChange} count={10}  />
-// );
-// 
-// RatingComponent.propTypes = {
-//   rating: PropTypes.number,
-//   onRateChange: PropTypes.func.isRequired,
-// };
-// 
-// export default RatingComponent;
