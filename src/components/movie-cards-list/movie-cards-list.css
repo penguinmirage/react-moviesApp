@@ -1,4 +1,7 @@
-ul li {
+
+
+
+ ul li {
   list-style: none;
 }
 
@@ -37,12 +40,14 @@ ul li {
 .movie-card-whole-info {
   margin: 5px 10px 2px 5px;
   padding: 5px;
-  
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .movie-title {
-  font-size: 18px;
+  font-size: 12px;
   font-weight: bold;
   margin: 0;
   position: relative;
@@ -63,13 +68,13 @@ ul li {
 
 .movie-genre {
   display: inline-block;
-	background-color: #e0e0e0; /* Light grey background */
-	color: #666; /* Text color */
-	padding: 5px 10px;
+	background-color: #e0e0e0; 
+	color: #666; 
+	padding: 1px 1px;
 	border-radius: 3px;
 	border: 1px solid darkgray;
 	margin-bottom:5px;
-	margin-right: 5px; /* Space between genre blocks */
+	margin-right: 5px;
 	font-size: 14px;
 	position: relative;
 	top: -50px;
@@ -81,7 +86,7 @@ ul li {
   color: #444;
   line-height: 1.5;
   margin-top: 8px;
-  flex-grow: 1;
+ 
   position: relative;
   top: -50px;
   left: 20px;
@@ -89,9 +94,9 @@ ul li {
 }
 
 .movie-rating {
-position: relative;
-top: -60px;
-right: -190px;
+  position: absolute; /* Fixed position in top right */
+  top: 10px;
+  right: 10px;
   font-size: 16px;
   font-weight: bold;
   color: #666;
@@ -102,6 +107,13 @@ right: -190px;
   min-width: 40px;
   min-height: 40px;
   line-height: 30px;
-  display: inline-block;
-  margin-left: auto;
 }
+
+.movie-stars {
+  margin-bottom: 40px;
+  margin-left: 50px; 
+  align-self: flex-start; 
+  position: relative;
+  top: auto; 
+  right: auto; 
+} 
