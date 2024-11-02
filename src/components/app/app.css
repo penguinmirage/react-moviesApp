@@ -64,3 +64,22 @@ code {
   margin: auto;
   
 }
+
+@media screen and (max-width: 570px) {
+  .app {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 540px;
+}
+.alert-message {
+max-width: 60%;
+width: 200px;
+}
+.filter-component {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 100px;
+  
+}
+}

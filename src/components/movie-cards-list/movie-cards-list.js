@@ -130,7 +130,7 @@ class MovieCardsList extends Component {
                     alt={movie.title}
                   />
                 ) : (
-                  <div style={placeholderStyle}>
+                  <div className='placeholderStyleMobile'>
                     <span>No Image Available</span>
                   </div>
                 )
